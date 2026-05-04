@@ -1,0 +1,41 @@
+services:
+  db:
+    container_name: "security-demonstration-database"
+    image: "postgres:18-alpine"
+    restart: "no"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${ENV_POSTGRES_USER} -d ${ENV_POSTGRES_DB}" ]
+      interval: "5s"
+      timeout: "5s"
+      retries: 5
+    environment:
+      POSTGRES_USER: "${ENV_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${ENV_POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${ENV_POSTGRES_DB}"
+    ports:
+      - "${ENV_POSTGRES_EXTERNAL_PORT}:5432"
+    volumes:
+      - "postgres_data:/var/lib/postgresql"
+
+  app:
+    build: "."
+    container_name: "security-demonstration-server"
+    restart: "no"
+    depends_on:
+      db:
+        condition: "service_healthy"
+    ports:
+      - "${ENV_SERVER_PORT}:${ENV_SERVER_PORT}"
+    environment:
+      APP_DB_HOST: "db"
+      APP_SERVER_PORT: "${ENV_SERVER_PORT}"
+      APP_POSTGRES_DB: "${ENV_POSTGRES_DB}"
+      APP_POSTGRES_USER: "${ENV_POSTGRES_USER}"
+      APP_POSTGRES_PASSWORD: "${ENV_POSTGRES_PASSWORD}"
+      APP_POSTGRES_PORT: "5432"
+      APP_JWT_SECRET_KEY: "${ENV_JWT_SECRET_KEY}"
+      APP_JWT_EXPIRATION_MS: "${ENV_JWT_EXPIRATION_MS}"
+      APP_REFRESH_TOKEN_EXPIRATION_MS: "${ENV_REFRESH_TOKEN_EXPIRATION_MS}"
+
+volumes:
+  postgres_data:
