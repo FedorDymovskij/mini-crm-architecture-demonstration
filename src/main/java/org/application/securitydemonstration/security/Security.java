@@ -34,7 +34,6 @@ public class Security {
         http.csrf(csrf -> csrf
                 .disable()
         );
-        http.cors(cors -> cors.configurationSource(this.corsConfigurationSource()));
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/public/**").permitAll()
@@ -54,22 +53,6 @@ public class Security {
         this.jwtFilter = jwtFilter;
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        // Specify the allowed origins (e.g., your frontend URL)
-        configuration.setAllowedOrigins(List.of("http://127.0.0.1:8000", "http://100.100.146.117:8000", "http://100.120.16.39:8000"));
-        // Define allowed HTTP methods
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        // Define allowed headers
-        configuration.setAllowedHeaders(List.of("*"));
-        // Allow credentials like cookies or auth headers
-        configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Apply this configuration to all paths
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 
 }
