@@ -3,6 +3,9 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+./structure_exports
+./src/test
+
 ### STS ###
 .apt_generated
 .classpath

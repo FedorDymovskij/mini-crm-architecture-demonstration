@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: "security-demonstration-database"
+    container_name: "crm-DDD-database"
     image: "postgres:18-alpine"
     restart: "no"
     healthcheck:
@@ -19,7 +19,7 @@ services:
 
   app:
     build: "."
-    container_name: "security-demonstration-server"
+    container_name: "crm-DDD-application"
     restart: "no"
     depends_on:
       db:
@@ -33,9 +33,8 @@ services:
       APP_POSTGRES_USER: "${ENV_POSTGRES_USER}"
       APP_POSTGRES_PASSWORD: "${ENV_POSTGRES_PASSWORD}"
       APP_POSTGRES_PORT: "5432"
-      APP_JWT_SECRET_KEY: "${ENV_JWT_SECRET_KEY}"
-      APP_JWT_EXPIRATION_MS: "${ENV_JWT_EXPIRATION_MS}"
-      APP_REFRESH_TOKEN_EXPIRATION_MS: "${ENV_REFRESH_TOKEN_EXPIRATION_MS}"
+      APP_SECURITY_ACCESS_TOKEN_SECRET_KEY: "${ENV_SECURITY_ACCESS_TOKEN_SECRET_KEY}"
+      APP_SECURITY_ACCESS_TOKEN_EXPIRATION_MS: "${ENV_SECURITY_ACCESS_TOKEN_EXPIRATION_MS}"
 
 volumes:
   postgres_data:

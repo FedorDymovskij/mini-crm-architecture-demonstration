@@ -37,7 +37,7 @@
 - Защита от CSRF атак (HttpOnly=true, Secure=true, SameSite=Strict)
 - Валидация и защита *Access* токенов за счет секретного ключа для их подписи
 - 3 заранее созданных пользователя с одноименными ролями для тестировки заготовленных сценариев:
-    - username: **user**, password: **user**
+    - username: **profile**, password: **profile**
     - username: **moderator**, password: **moderator**
     - username: **admin**, password: **admin**
 
@@ -131,7 +131,7 @@ docker compose -f ./docker-compose-database.yml up --build
     </tr>
     <tr>
       <td><b>GET</b></td>
-      <td>/user/resource</td>
+      <td>/profile/resource</td>
       <td>Валидный <i>Access</i> токен в заголовке: <code>Authorization: Bearer </code></td>
       <td>Ресурс для всех аутентифицированных пользователей с ролью <b>USER</b></td>
     </tr>

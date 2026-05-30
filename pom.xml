@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.application</groupId>
-    <artifactId>security-demonstration</artifactId>
+    <artifactId>crm-DDD</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>security-demonstration</name>
-    <description>security-demonstration</description>
+    <name>crm-DDD</name>
+    <description>crm-DDD</description>
     <url/>
     <licenses>
         <license/>
@@ -92,6 +92,11 @@
             <artifactId>flyway-database-postgresql</artifactId>
             <version>12.5.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.f4b6a3</groupId>
+            <artifactId>uuid-creator</artifactId>
+            <version>6.1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -99,6 +104,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
