@@ -1,4 +1,4 @@
-create table users
+create table accounts
 (
     id       uuid         not null,
     username varchar(255) not null unique,
@@ -21,4 +21,4 @@ create table refresh_tokens
 alter table if exists refresh_tokens
     add constraint refresh_tokens_account_id_to_users_constraint
         foreign key (account_id)
-            references users;
+            references accounts;

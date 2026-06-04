@@ -1,6 +1,6 @@
 package org.application.crm_DDD.core.security.exception;
 
-import org.application.crm_DDD.core.exception.ExceptionReasonPhraseSpecification;
+import org.application.crm_DDD.core.application.exception.ExceptionReasonPhraseSpecification;
 
 public enum SecurityExceptionReasonPhrase implements ExceptionReasonPhraseSpecification {
     SECURITY_INVALID_ACCESS_TOKEN("Access token expired");

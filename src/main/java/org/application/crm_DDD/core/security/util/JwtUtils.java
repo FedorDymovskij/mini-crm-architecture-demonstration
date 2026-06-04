@@ -30,7 +30,7 @@ public class JwtUtils {
     ) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
-        claims.put("username", username);
+        claims.put("value", username);
 
         return Jwts.builder()
                 .subject(userId)
@@ -54,7 +54,7 @@ public class JwtUtils {
     }
 
     public String extractUsernameFromClaims(final Claims claims) throws JwtException {
-        return claims.get("username", String.class);
+        return claims.get("value", String.class);
     }
 
     public String extractRoleFromClaims(final Claims claims) throws JwtException {

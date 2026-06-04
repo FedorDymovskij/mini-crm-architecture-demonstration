@@ -5,6 +5,7 @@ HELP.md
 
 ./structure_exports
 ./src/test
+./git
 
 ### STS ###
 .apt_generated
@@ -17,9 +18,11 @@ HELP.md
 
 ### IntelliJ IDEA ###
 .idea
-*.iws
-*.iml
-*.ipr
+
+### mvn ###
+.mvn
+./mvnw
+./mvnw.cmd
 
 ### NetBeans ###
 /nbproject/private/

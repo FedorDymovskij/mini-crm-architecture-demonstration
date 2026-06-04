@@ -1,6 +1,6 @@
 package org.application.crm_DDD.core.security.exception;
 
-import org.application.crm_DDD.core.exception.InfrastructureException;
+import org.application.crm_DDD.core.application.exception.InfrastructureException;
 
 public class SecurityException extends InfrastructureException {
     public SecurityException(

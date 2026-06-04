@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.application.crm_DDD.core.security.CorePrincipal;
 import org.application.crm_DDD.core.security.exception.SecurityException;
 import org.application.crm_DDD.core.security.exception.SecurityExceptionReasonPhrase;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +23,7 @@ import java.util.UUID;
 
 
 public class MainAuthenticationFilter extends OncePerRequestFilter {
-    private final MainAuthenticationFilterUtils mainAuthenticationFilterUtils;
+    private final MainJwtAccessTokenUtils mainJwtAccessTokenUtils;
     private final HandlerExceptionResolver resolver;
 
     @Override
@@ -32,13 +33,13 @@ public class MainAuthenticationFilter extends OncePerRequestFilter {
             final FilterChain filterChain
     ) throws ServletException, IOException {
         try {
-            String jwtToken = this.mainAuthenticationFilterUtils.extractAccessTokenFromAuthorizationHeader(request);
+            String jwtToken = this.mainJwtAccessTokenUtils.extractAccessTokenFromAuthorizationHeader(request);
             if (jwtToken != null) {
-                Claims claims = this.mainAuthenticationFilterUtils.validateAccessTokenAndExtractAllClaims(jwtToken);
+                Claims claims = this.mainJwtAccessTokenUtils.validateAccessTokenAndExtractAllClaims(jwtToken);
                 if (claims != null) {
-                    UUID accountId = this.mainAuthenticationFilterUtils.extractAccountId(claims);
-                    String username = this.mainAuthenticationFilterUtils.extractUsername(claims);
-                    String role = this.mainAuthenticationFilterUtils.extractRole(claims);
+                    UUID accountId = this.mainJwtAccessTokenUtils.extractAccountId(claims);
+                    String username = this.mainJwtAccessTokenUtils.extractUsername(claims);
+                    String role = this.mainJwtAccessTokenUtils.extractRole(claims);
                     if (!accountId.toString().isEmpty() && !username.isEmpty() && !role.isEmpty()) {
                         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
@@ -52,15 +53,16 @@ public class MainAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
             }
-        } catch (final JwtException e) {
-            throw new SecurityException(null, SecurityExceptionReasonPhrase.SECURITY_INVALID_ACCESS_TOKEN);
-        } finally {
             filterChain.doFilter(request, response);
+        } catch (final JwtException e) {
+            SecurityException securityException = new SecurityException(null, SecurityExceptionReasonPhrase.SECURITY_INVALID_ACCESS_TOKEN);
+
+            this.resolver.resolveException(request, response, null, securityException);
         }
     }
 
-    public MainAuthenticationFilter(MainAuthenticationFilterUtils mainAuthenticationFilterUtils, HandlerExceptionResolver resolver) {
-        this.mainAuthenticationFilterUtils = mainAuthenticationFilterUtils;
+    public MainAuthenticationFilter(MainJwtAccessTokenUtils mainJwtAccessTokenUtils, @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+        this.mainJwtAccessTokenUtils = mainJwtAccessTokenUtils;
         this.resolver = resolver;
     }
 }

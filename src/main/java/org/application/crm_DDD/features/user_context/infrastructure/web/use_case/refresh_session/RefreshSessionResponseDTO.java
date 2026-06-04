@@ -1,6 +1,0 @@
-package org.application.crm_DDD.features.user_context.infrastructure.web.use_case.refresh_session;
-
-public record RefreshSessionResponseDTO(
-        String accessToken
-) {
-}

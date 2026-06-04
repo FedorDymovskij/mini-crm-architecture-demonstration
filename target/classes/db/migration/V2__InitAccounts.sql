@@ -1,8 +1,8 @@
-insert into users(id,
-                  username,
-                  password,
-                  role,
-                  status)
+insert into accounts(id,
+                     username,
+                     password,
+                     role,
+                     status)
 VALUES ('c884d3a7-4852-4c0e-a9dc-ef8fc3d5bd6f',
         'user',
         '$2a$10$TFxtFxsa.n14XxMAebHXQeMQWIwKU7RyKCyHzH08Fr/.sjfXyzuzG',
