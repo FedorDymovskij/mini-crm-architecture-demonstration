@@ -1,4 +1,4 @@
-# SECURITY DEMONSTRATION
+# MINI CRM ARCHITECTURE DEMONSTRATION
 
 Моя мини-CRM-система, впервые использующая сразу 3 архитектурных подхода: Feature-Sliced Design, DDD и Hexagonal
 architecture.
