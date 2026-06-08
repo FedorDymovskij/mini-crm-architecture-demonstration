@@ -57,14 +57,14 @@ architecture.
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/FedorDymovskij/crm-DDD
+git clone https://github.com/FedorDymovskij/mini-crm-architecture-demonstration
 
 ```
 
 2. Перейдите в папку проекта:
 
 ```bash
-cd .../crm-DDD
+cd .../mini-crm-architecture-demonstration
 
 ```
 
